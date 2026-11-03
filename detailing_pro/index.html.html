@@ -1,0 +1,532 @@
+```html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLACK AUTO — Премиальный детейлинг и защита автомобиля</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --surface-0: #05070C;
+            --surface-1: #0A0D12;
+            --surface-2: #0F131C;
+            --surface-3: #161D2B;
+            --surface-4: #1E2636;
+            --accent: #E5A93C;
+            --accent-muted: #8B6D2E;
+            --white: #FFFFFF;
+            --radius-sm: 12px;
+            --radius-md: 16px;
+            --radius-full: 999px;
+            --font-base: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --spacing-xs: clamp(0.5rem, 2vw, 0.75rem);
+            --spacing-sm: clamp(1rem, 3vw, 1.5rem);
+            --spacing-md: clamp(2rem, 5vw, 3rem);
+            --spacing-lg: clamp(3rem, 8vw, 5rem);
+            --text-display: clamp(2.5rem, 7vw, 5rem);
+            --text-h2: clamp(2rem, 5vw, 3.5rem);
+            --text-h3: clamp(1.5rem, 4vw, 2.25rem);
+            --text-body: clamp(1rem, 2vw, 1.125rem);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-base);
+            background: var(--surface-0);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-sm);
+        }
+        
+        .glass {
+            background: rgba(15, 19, 28, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(229, 169, 60, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+        
+        .gradient-accent {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-muted) 100%);
+        }
+        
+        .btn-primary {
+            background: var(--accent);
+            color: var(--surface-0);
+            padding: clamp(0.875rem, 2vw, 1.125rem) clamp(1.75rem, 4vw, 2.5rem);
+            border-radius: var(--radius-full);
+            font-weight: 700;
+            font-size: var(--text-body);
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            letter-spacing: -0.02em;
+            box-shadow: 0 4px 20px rgba(229, 169, 60, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(229, 169, 60, 0.5);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            padding: clamp(0.875rem, 2vw, 1.125rem) clamp(1.75rem, 4vw, 2.5rem);
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            font-size: var(--text-body);
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            border: 2px solid var(--accent);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(229, 169, 60, 0.1);
+        }
+        
+        .pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.8;
+            }
+        }
+        
+        .card {
+            background: var(--surface-2);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(229, 169, 60, 0.1);
+        }
+        
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(229, 169, 60, 0.3);
+        }
+        
+        .section-title {
+            font-size: var(--text-h2);
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .accent-text {
+            color: var(--accent);
+        }
+        
+        .hero-bg {
+            background: linear-gradient(135deg, var(--surface-0) 0%, var(--surface-2) 50%, var(--surface-1) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 60%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(229, 169, 60, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-sm);
+        }
+        
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: var(--spacing-sm);
+        }
+        
+        @media (max-width: 768px) {
+            .grid-2, .grid-4 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HERO SECTION -->
+    <section class="hero-bg" style="min-height: 100vh; display: flex; align-items: center; position: relative;">
+        <div style="position: absolute; inset: 0; z-index: 0; opacity: 0.15;">
+            <img src="https://images.unsplash.com/photo-1619405399517-d7fce0f13302?w=1920&q=90" alt="Sports car detailing" style="height: 100vh;">
+        </div>
+        
+        <div class="container" style="position: relative; z-index: 10; padding-top: var(--spacing-lg); padding-bottom: var(--spacing-lg);">
+            <div style="max-width: 900px;">
+                <div style="display: inline-block; padding: 0.5rem 1.5rem; background: rgba(229, 169, 60, 0.15); border-radius: var(--radius-full); margin-bottom: var(--spacing-sm); border: 1px solid rgba(229, 169, 60, 0.3);">
+                    <span style="font-weight: 700; font-size: clamp(0.875rem, 2vw, 1rem); letter-spacing: 0.05em;">BLACK AUTO DETAILING</span>
+                </div>
+                
+                <h1 style="font-size: var(--text-display); font-weight: 900; line-height: 1.05; letter-spacing: -0.04em; margin-bottom: var(--spacing-sm);">
+                    Премиальный детейлинг<br>
+                    и <span class="accent-text">защита вашего авто</span>
+                </h1>
+                
+                <p style="font-size: var(--text-h3); font-weight: 300; line-height: 1.5; margin-bottom: var(--spacing-md); color: rgba(255, 255, 255, 0.8);">
+                    Полировка, керамика, оклейка плёнкой и химчистка. Вернем автомобилю вид нового из автосалона.
+                </p>
+                
+                <div style="display: flex; gap: var(--spacing-sm); flex-wrap: wrap; margin-bottom: var(--spacing-md);">
+                    <a href="#contact" class="btn-primary pulse">Записаться на бесплатный осмотр</a>
+                    <a href="https://wa.me/79000000000" class="btn-secondary">Написать в WhatsApp</a>
+                </div>
+                
+                <div class="glass" style="padding: var(--spacing-sm); border-radius: var(--radius-md); display: inline-block;">
+                    <div style="display: flex; gap: var(--spacing-sm); flex-wrap: wrap; font-size: clamp(0.875rem, 2vw, 1rem);">
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="color: var(--accent); font-size: 1.25rem;">✓</span>
+                            <span style="font-weight: 600;">Гарантия 2 года</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="color: var(--accent); font-size: 1.25rem;">✓</span>
+                            <span style="font-weight: 600;">Сертифицированные составы</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="color: var(--accent); font-size: 1.25rem;">✓</span>
+                            <span style="font-weight: 600;">Фотоотчет работы</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section style="padding: var(--spacing-lg) 0; background: var(--surface-1);">
+        <div class="container">
+            <h2 class="section-title" style="text-align: center;">
+                Наши <span class="accent-text">услуги и цены</span>
+            </h2>
+            
+            <div class="grid-4">
+                <!-- Service 1 -->
+                <div class="card">
+                    <div style="height: 220px; overflow: hidden;">
+                        <img src="https://images.unsplash.com/photo-1607860108855-64acf2078ed9?w=600&q=85" alt="Полировка автомобиля">
+                    </div>
+                    <div style="padding: var(--spacing-sm);">
+                        <h3 style="font-size: var(--text-h3); font-weight: 700; margin-bottom: 0.75rem; letter-spacing: -0.02em;">
+                            Детейлинг-полировка
+                        </h3>
+                        <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 1rem; line-height: 1.6;">
+                            Восстановление глубины цвета, удаление царапин и голограмм
+                        </p>
+                        <div style="display: flex; align-items: baseline; gap: 0.5rem;">
+                            <span style="font-size: var(--text-h3); font-weight: 900; color: var(--accent);">от 8 000 ₽</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="card">
+                    <div style="height: 220px; overflow: hidden;">
+                        <img src="https://images.unsplash.com/photo-1601362840469-51e4d8d58785?w=600&q=85" alt="Керамическое покрытие">
+                    </div>
+                    <div style="padding: var(--spacing-sm);">
+                        <h3 style="font-size: var(--text-h3); font-weight: 700; margin-bottom: 0.75rem; letter-spacing: -0.02em;">
+                            Керамика 9H
+                        </h3>
+                        <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 1rem; line-height: 1.6;">
+                            Защита кузова на 3-5 лет, гидрофобный эффект и блеск
+                        </p>
+                        <div style="display: flex; align-items: baseline; gap: 0.5rem;">
+                            <span style="font-size: var(--text-h3); font-weight: 900; color: var(--accent);">от 12 000 ₽</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="card">
+                    <div style="height: 220px; overflow: hidden;">
+                        <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=600&q=85" alt="Бронеплёнка">
+                    </div>
+                    <div style="padding: var(--spacing-sm);">
+                        <h3 style="font-size: var(--text-h3); font-weight: 700; margin-bottom: 0.75rem; letter-spacing: -0.02em;">
+                            Защитная бронеплёнка
+                        </h3>
+                        <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 1rem; line-height: 1.6;">
+                            Оклейка полиуретановой плёнкой от сколов и царапин
+                        </p>
+                        <div style="display: flex; align-items: baseline; gap: 0.5rem;">
+                            <span style="font-size: var(--text-h3); font-weight: 900; color: var(--accent);">от 25 000 ₽</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Service 4 -->
+                <div class="card">
+                    <div style="height: 220px; overflow: hidden;">
+                        <img src="https://images.unsplash.com/photo-1607860108714-5ea8b6c95799?w=600&q=85" alt="Химчистка салона">
+                    </div>
+                    <div style="padding: var(--spacing-sm);">
+                        <h3 style="font-size: var(--text-h3); font-weight: 700; margin-bottom: 0.75rem; letter-spacing: -0.02em;">
+                            Премиум-химчистка
+                        </h3>
+                        <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 1rem; line-height: 1.6;">
+                            Глубокая чистка салона, потолка, багажника и торпедо
+                        </p>
+                        <div style="display: flex; align-items: baseline; gap: 0.5rem;">
+                            <span style="font-size: var(--text-h3); font-weight: 900; color: var(--accent);">от 6 000 ₽</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY US SECTION -->
+    <section style="padding: var(--spacing-lg) 0; background: var(--surface-0);">
+        <div class="container">
+            <h2 class="section-title" style="text-align: center;">
+                Почему <span class="accent-text">выбирают нас</span>
+            </h2>
+            
+            <div class="grid-4">
+                <div class="glass" style="padding: var(--spacing-sm); border-radius: var(--radius-md); text-align: center;">
+                    <div style="width: 80px; height: 80px; margin: 0 auto 1.5rem; background: linear-gradient(135deg, var(--accent) 0%, var(--accent-muted) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem;">
+                        👨‍🔧
+                    </div>
+                    <h3 style="font-size: var(--text-h3); font-weight: 700; margin-bottom: 0.75rem;">Опытные мастера</h3>
+                    <p style="color: rgba(255, 255, 255, 0.7); line-height: 1.6;">
+                        Более 8 лет работы с премиум-автомобилями
+                    </p>
+                </div>
+                
+                <div class="glass" style="padding: var(--spacing-sm); border-radius: var(--radius-md); text-align: center;">
+                    <div style="width: 80px; height: 80px; margin: 0 auto 1.5rem; background: linear-gradient(135deg, var(--accent) 0%, var(--accent-muted) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem;">
+                        🔒
+                    </div>
+                    <h3 style="font-size: var(--text-h3); font-weight: 700; margin-bottom: 0.75rem;">Охраняемый бокс 24/7</h3>
+                    <p style="color: rgba(255, 255, 255, 0.7); line-height: 1.6;">
+                        Закрытая территория с видеонаблюдением
+                    </p>
+                </div>
+                
+                <div class="glass" style="padding: var(--spacing-sm); border-radius: var(--radius-md); text-align: center;">
+                    <div style="width: 80px; height: 80px; margin: 0 auto 1.5rem; background: linear-gradient(135deg, var(--accent) 0%, var(--accent-muted) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem;">
+                        ⚗️
+                    </div>
+                    <h3 style="font-size: var(--text-h3); font-weight: 700; margin-bottom: 0.75rem;">Премиум химия</h3>
+                    <p style="color: rgba(255, 255, 255, 0.7); line-height: 1.6;">
+                        Только Koch Chemie, Gyeon и Gtechniq
+                    </p>
+                </div>
+                
+                <div class="glass" style="padding: var(--spacing-sm); border-radius: var(--radius-md); text-align: center;">
+                    <div style="width: 80px; height: 80px; margin: 0 auto 1.5rem; background: linear-gradient(135deg, var(--accent) 0%, var(--accent-muted) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem;">
+                        ✅
+                    </div>
+                    <h3 style="font-size: var(--text-h3); font-weight: 700; margin-bottom: 0.75rem;">Гарантия на работы</h3>
+                    <p style="color: rgba(255, 255, 255, 0.7); line-height: 1.6;">
+                        До 2 лет на керамику и плёнку
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY SECTION -->
+    <section style="padding: var(--spacing-lg) 0; background: var(--surface-1);">
+        <div class="container">
+            <h2 class="section-title" style="text-align: center;">
+                Галерея <span class="accent-text">наших работ</span>
+            </h2>
+            
+            <div class="grid-4">
+                <div class="card" style="position: relative;">
+                    <div style="height: 280px;">
+                        <img src="https://images.unsplash.com/photo-1619405399080-d0d3a20d8e13?w=600&q=85" alt="До и после детейлинга">
+                    </div>
+                    <div style="position: absolute; bottom: var(--spacing-sm); left: var(--spacing-sm); right: var(--spacing-sm);">
+                        <div class="glass" style="padding: 0.75rem 1.25rem; border-radius: var(--radius-full);">
+                            <span style="font-weight: 700; font-size: 0.875rem;">BMW M5 — Полировка + керамика</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card" style="position: relative;">
+                    <div style="height: 280px;">
+                        <img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=600&q=85" alt="Детейлинг работа">
+                    </div>
+                    <div style="position: absolute; bottom: var(--spacing-sm); left: var(--spacing-sm); right: var(--spacing-sm);">
+                        <div class="glass" style="padding: 0.75rem 1.25rem; border-radius: var(--radius-full);">
+                            <span style="font-weight: 700; font-size: 0.875rem;">Porsche 911 — Бронеплёнка</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card" style="position: relative;">
+                    <div style="height: 280px;">
+                        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&q=85" alt="Химчистка салона">
+                    </div>
+                    <div style="position: absolute; bottom: var(--spacing-sm); left: var(--spacing-sm); right: var(--spacing-sm);">
+                        <div class="glass" style="padding: 0.75rem 1.25rem; border-radius: var(--radius-full);">
+                            <span style="font-weight: 700; font-size: 0.875rem;">Mercedes S-Class — Химчистка</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card" style="position: relative;">
+                    <div style="height: 280px;">
+                        <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?w=600&q=85" alt="Полировка кузова">
+                    </div>
+                    <div style="position: absolute; bottom: var(--spacing-sm); left: var(--spacing-sm); right: var(--spacing-sm);">
+                        <div class="glass" style="padding: 0.75rem 1.25rem; border-radius: var(--radius-full);">
+                            <span style="font-weight: 700; font-size: 0.875rem;">Audi RS6 — Коррекция ЛКП</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- REVIEWS SECTION -->
+    <section style="padding: var(--spacing-lg) 0; background: var(--surface-0);">
+        <div class="container">
+            <h2 class="section-title" style="text-align: center;">
+                Отзывы <span class="accent-text">владельцев авто</span>
+            </h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--spacing-sm);">
+                <div class="glass" style="padding: var(--spacing-sm); border-radius: var(--radius-md);">
+                    <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="width: 60px; height: 60px; border-radius: 50%; overflow: hidden; flex-shrink: 0;">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&q=80" alt="Александр">
+                        </div>
+                        <div>
+                            <div style="font-weight: 700; font-size: 1.125rem; margin-bottom: 0.25rem;">Александр М.</div>
+                            <div style="color: var(--accent); font-size: 0.875rem;">Porsche Cayenne Turbo</div>
+                        </div>
+                    </div>
+                    <p style="color: rgba(255, 255, 255, 0.8); line-height: 1.7;">
+                        Нанесли керамику Gyeon на весь кузов. Результат превзошёл все ожидания — машина как новая, блеск невероятный. Ребята профессионалы своего дела!
+                    </p>
+                    <div style="color: var(--accent); margin-top: 1rem; font-size: 1.25rem;">★★★★★</div>
+                </div>
+                
+                <div class="glass" style="padding: var(--spacing-sm); border-radius: var(--radius-md);">
+                    <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="width: 60px; height: 60px; border-radius: 50%; overflow: hidden; flex-shrink: 0;">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120&q=80" alt="Дмитрий">
+                        </div>
+                        <div>
+                            <div style="font-weight: 700; font-size: 1.125rem; margin-bottom: 0.25rem;">Дмитрий К.</div>
+                            <div style="color: var(--accent); font-size: 0.875rem;">BMW X5 M50i</div>
+                        </div>
+                    </div>
+                    <p style="color: rgba(255, 255, 255, 0.8); line-height: 1.7;">
+                        Сделали полный детейлинг перед продажей — покупатель был в восторге от состояния авто. Цену подняли на 150к благодаря их работе. Однозначно рекомендую!
+                    </p>
+                    <div style="color: var(--accent); margin-top: 1rem; font-size: 1.25rem;">★★★★★</div>
+                </div>
+                
+                <div class="glass" style="padding: var(--spacing-sm); border-radius: var(--radius-md);">
+                    <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="width: 60px; height: 60px; border-radius: 50%; overflow: hidden; flex-shrink: 0;">
+                            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=120&q=80" alt="Сергей">
+                        </div>
+                        <div>
+                            <div style="font-weight: 700; font-size: 1.125rem; margin-bottom: 0.25rem;">Сергей В.</div>
+                            <div style="color: var(--accent); font-size: 0.875rem;">Mercedes G63 AMG</div>
+                        </div>
+                    </div>
+                    <p style="color: rgba(255, 255, 255, 0.8); line-height: 1.7;">
+                        Оклеили бронеплёнкой капот, крылья и зеркала. Прошёл год — ни одного скола! Мастера работают аккуратно, фотоотчёт после каждого этапа. Топ!
+                    </p>
+                    <div style="color: var(--accent); margin-top: 1rem; font-size: 1.25rem;">★★★★★</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" style="padding: var(--spacing-lg) 0; background: var(--surface-1);">
+        <div class="container">
+            <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+                <h2 class="section-title">
+                    Запишитесь на <span class="accent-text">бесплатный осмотр</span>
+                </h2>
+                
+                <p style="font-size: var(--text-body); color: rgba(255, 255, 255, 0.8); margin-bottom: var(--spacing-md); line-height: 1.7;">
+                    Оценим состояние вашего авто, подберём оптимальные услуги и предложим лучшую цену. Работаем ежедневно с 9:00 до 21:00.
+                </p>
+                
+                <div class="glass" style="padding: var(--spacing-md); border-radius: var(--radius-md); margin-bottom: var(--spacing-md);">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--spacing-sm); text-align: left;">
+                        <div>
+                            <div style="color: var(--accent); font-weight: 700; font-size: 0.875rem; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">Адрес</div>
+                            <div style="font-size: 1.125rem;">г. Москва, ул. Автомобильная, 15</div>
+                        </div>
+                        <div>
+                            <div style="color: var(--accent); font-weight: 700; font-size: 0.875rem; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">Телефон</div>
+                            <div style="font-size: 1.125rem;"><a href="tel:+79000000000" style="color: var(--white); text-decoration: none;">+7 (900) 000-00-00</a></div>
+                        </div>
+                        <div>
+                            <div style="color: var(--accent); font-weight: 700; font-size: 0.875rem; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">Режим работы</div>
+                            <div style="font-size: 1.125rem;">Ежедневно 9:00 — 21:00</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="display: flex; gap: var(--spacing-sm); justify-content: center; flex-wrap: wrap;">
+                    <a href="https://wa.me/79000000000" class="btn-primary pulse">Написать в WhatsApp</a>
+                    <a href="tel:+79000000000" class="btn-secondary">Позвонить сейчас</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer style="padding: var(--spacing-md) 0; background: var(--surface-0); border-top: 1px solid rgba(229, 169, 60, 0.1);">
+        <div class="container">
+            <div style="text-align: center; color: rgba(255, 255, 255, 0.6);">
+                <div style="font-weight: 900; font-size: 1.5rem; color: var(--accent); margin-bottom: 1rem; letter-spacing: -0.02em;">BLACK AUTO</div>
+                <p style="font-size: 0.875rem; line-height: 1.6;">
+                    Премиальный детейлинг-центр © 2026<br>
+                    Все права защищены
+                </p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
+```
